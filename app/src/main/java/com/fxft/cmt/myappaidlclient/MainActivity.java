@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         textNo = (EditText) findViewById(R.id.textNo);
         textShowNo = (TextView) findViewById(R.id.textShowNo);
         mServiceConnectionImpl = new ServiceConnectionImpl();
-        final Intent eintent = new Intent(createExplicitFromImplicitIntent(this,new Intent("student.query")));
+        final Intent eintent = new Intent(createExplicitFromImplicitIntent(this, new Intent("student.query")));
         bindService(eintent, mServiceConnectionImpl, BIND_AUTO_CREATE);
 
         btnQuery.setOnClickListener(new View.OnClickListener() {
@@ -70,18 +70,16 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (mServiceConnectionImpl!=null){
+        if (mServiceConnectionImpl != null) {
             unbindService(mServiceConnectionImpl);
         }
     }
 
     /***
-     * Android L (lollipop, API 21) introduced a new problem when trying to invoke implicit intent,
-     * "java.lang.IllegalArgumentException: Service Intent must be explicit"
-     *
-     * If you are using an implicit intent, and know only 1 target would answer this intent,
-     * This method will help you turn the implicit intent into the explicit form.
-     *
+     * Android L（棒棒糖，API 21）在尝试调用隐含意图时引入了一个新问题，
+     * “java.lang.IllegalArgumentException：服务意图必须是显式的”
+     * 如果你使用隐含意图，只知道1个目标会回答这个意图，
+     * 这个方法可以帮助你将隐含意图转换成明确的形式。
      * Inspired from SO answer: http://stackoverflow.com/a/26318757/1446466
      * @param context
      * @param implicitIntent - The original implicit intent
@@ -104,7 +102,6 @@ public class MainActivity extends AppCompatActivity {
         Intent explicitIntent = new Intent(implicitIntent);
         // Set the component to be explicit
         explicitIntent.setComponent(component);
-
         return explicitIntent;
     }
 
